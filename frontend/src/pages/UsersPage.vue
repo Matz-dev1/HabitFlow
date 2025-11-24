@@ -5,9 +5,9 @@
 
       <!-- Summary Cards -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <StatsCard title="Total Users" :value="totalUsers" />
-        <StatsCard title="New This Week" :value="newUsers" />
-        <StatsCard title="Active %" :value="activePercent + '%'" />
+        <StatCard title="Total Users" :value="totalUsers" />
+        <StatCard title="New This Week" :value="newUsers" />
+        <StatCard title="Active %" :value="activePercent + '%'" />
       </div>
 
       <!-- Charts -->
@@ -58,7 +58,7 @@
 import { ref } from 'vue';
 import MainLayout from '../layouts/MainLayout.vue';
 import Card from '../components/ui/Card.vue';
-import StatsCard from '../components/cards/StatCard.vue';
+import StatCard from '../components/cards/StatCard.vue';
 import ChartCard from '../components/cards/ChartCard.vue';
 
 import LineChart from '../components/charts/LineChart.vue';
