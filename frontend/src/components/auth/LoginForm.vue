@@ -1,8 +1,12 @@
 <template>
   <form
-    @submit.prevent="handleSubmit"
+    @submit="handleSubmit"
     class="flex flex-col gap-4 w-full max-w-sm mx-auto"
   >
+    <div>
+      <div class="font-bold">Login to your account</div>
+      <p class="text-sm text-gray-500">Enter your email and password below</p>
+    </div>
     <div>
       <label class="text-sm text-gray-600">Email</label>
       <input
@@ -22,6 +26,13 @@
         required
       />
     </div>
+    <RouterLink
+      href="#"
+      class="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+      to="/password-reset"
+    >
+      Forgot your password?
+    </RouterLink>
 
     <button
       type="submit"
@@ -31,33 +42,59 @@
       {{ loading ? 'Logging in…' : 'Login' }}
     </button>
 
-    <p v-if="error" class="text-sm text-red-500">
-      {{ error }}
+    <p v-if="error || authStore.error" class="text-sm text-red-500">
+      {{ error || authStore.error }}
     </p>
+    <div class="mt-4 text-center text-sm">
+      Don't have an account?
+      <RouterLink
+        href="#"
+        class="underline underline-offset-4"
+        to="/register-form"
+      >
+        Sign up
+      </RouterLink>
+    </div>
   </form>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useAuthStore } from '@/stores/auth';
+import { ref, computed } from 'vue';
+import { RouterLink } from 'vue-router';
+import { useAuthStore } from '../../store';
+import { validateEmail } from '../../utils/validation';
 
 const email = ref('');
 const password = ref('');
 const error = ref<string | null>(null);
-const loading = ref(false);
 
-const auth = useAuthStore();
+const authStore = useAuthStore();
+const loading = computed(() => authStore.loading);
 
-const handleSubmit = async () => {
+const handleSubmit = async (e: Event) => {
+  e.preventDefault();
   error.value = null;
-  loading.value = true;
+  authStore.clearError();
+
+  // Walidacja emaila
+  const emailError = validateEmail(email.value);
+  if (emailError) {
+    error.value = emailError;
+    return;
+  }
+
+  if (!password.value || password.value.trim() === '') {
+    error.value = 'Password is required';
+    return;
+  }
 
   try {
-    await auth.login(email.value, password.value);
+    await authStore.login({
+      email: email.value.trim(),
+      password: password.value,
+    });
   } catch (err: any) {
     error.value = err.message || 'Login failed';
-  } finally {
-    loading.value = false;
   }
 };
 </script>

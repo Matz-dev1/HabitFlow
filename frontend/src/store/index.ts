@@ -1,11 +1,7 @@
 import { defineStore } from 'pinia';
 
-export const useAuthStore = defineStore('auth', {
-  state: () => ({
-    user: null,
-    token: null,
-  }),
-});
+export { useAuthStore } from './auth';
+export { AUTH_CONSTANTS } from '../types/auth';
 
 export const useSidebarStore = defineStore('sidebar', {
   state: () => ({
