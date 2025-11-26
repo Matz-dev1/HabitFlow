@@ -137,14 +137,6 @@ export const useAuthStore = defineStore('auth', {
       this.loading = true;
       this.error = null;
 
-      // Walidacja hasła
-      if (credentials.password.length < AUTH_CONSTANTS.MIN_PASSWORD_LENGTH) {
-        const error = `Password must be at least ${AUTH_CONSTANTS.MIN_PASSWORD_LENGTH} characters`;
-        this.error = error;
-        this.loading = false;
-        throw new Error(error);
-      }
-
       // Sprawdzenie czy hasła się zgadzają
       if (credentials.password !== credentials.confirmPassword) {
         const error = 'Passwords do not match';
