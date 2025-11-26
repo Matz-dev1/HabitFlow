@@ -8,43 +8,43 @@ import {
 } from '../types/auth';
 
 // Mock functions dla testów (usunąć gdy backend będzie gotowy)
-const mockRegister = async (
-  credentials: RegisterCredentials
-): Promise<{ token: string; user: User }> => {
-  // Symulacja opóźnienia sieci
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+// const mockRegister = async (
+//   credentials: RegisterCredentials
+// ): Promise<{ token: string; user: User }> => {
+//   // Symulacja opóźnienia sieci
+//   await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  return {
-    token: `mock_token_${Date.now()}_${Math.random()
-      .toString(36)
-      .substr(2, 9)}`,
-    user: {
-      id: `user_${Date.now()}`,
-      email: credentials.email,
-      name: credentials.email.split('@')[0],
-      role: 'user',
-    },
-  };
-};
+//   return {
+//     token: `mock_token_${Date.now()}_${Math.random()
+//       .toString(36)
+//       .substr(2, 9)}`,
+//     user: {
+//       id: `user_${Date.now()}`,
+//       email: credentials.email,
+//       name: credentials.email.split('@')[0],
+//       role: 'user',
+//     },
+//   };
+// };
 
-const mockLogin = async (
-  credentials: LoginCredentials
-): Promise<{ token: string; user: User }> => {
-  // Symulacja opóźnienia sieci
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+// const mockLogin = async (
+//   credentials: LoginCredentials
+// ): Promise<{ token: string; user: User }> => {
+//   // Symulacja opóźnienia sieci
+//   await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  return {
-    token: `mock_token_${Date.now()}_${Math.random()
-      .toString(36)
-      .substr(2, 9)}`,
-    user: {
-      id: `user_${Date.now()}`,
-      email: credentials.email,
-      name: credentials.email.split('@')[0],
-      role: 'user',
-    },
-  };
-};
+//   return {
+//     token: `mock_token_${Date.now()}_${Math.random()
+//       .toString(36)
+//       .substr(2, 9)}`,
+//     user: {
+//       id: `user_${Date.now()}`,
+//       email: credentials.email,
+//       name: credentials.email.split('@')[0],
+//       role: 'user',
+//     },
+//   };
+// };
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
